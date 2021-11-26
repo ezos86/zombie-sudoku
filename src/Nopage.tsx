@@ -8,8 +8,7 @@ const App = () => {
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
                 <p>
-                    Ealsdjfal;sjdf asldfj dit <code>src/App.tsx</code> and save
-                    to reload.
+                    Edit <code>src/App.tsx</code> and save to reload.
                 </p>
                 <a
                     className="App-link"
