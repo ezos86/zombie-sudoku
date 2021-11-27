@@ -41,16 +41,6 @@ const Game = () => {
     ]); // Holds default value for gameArray, which is edited when input is changed - used this vs hash, becuase 'validate' endpoint wants array. faster than recreating array on each submit.
     const [solved, setSolved] = useState<boolean>(false); // Triggers values and render when solve is hit.
 
-    /*
-        get game from spekit endpoint
-        store original game (it's generated) gameArray, setGameArray
-        update
-        
-        Rebuild array on submit && solve? // loop through letters and numbers and use them to see if exists, or enter 0
-        build array as input happens?
-
-    */
-
     const submit = async () => {
         // Use Loader
         setValidating(true);

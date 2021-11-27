@@ -240,6 +240,10 @@ body,
 }
 
 // Game
+.game-view{
+    background-color: $primary-color;
+}
+
 .game-number{
     font-size: 16px;
     font-size: 4vw;
@@ -270,8 +274,10 @@ body,
         background-color:#fff;
         border:none;
         text-align:center;
+        color:#000;
         &:disabled{
-            color:#333;
+            font-weight:600;
+            color:#000;
         }
         &:focus{
             border-color:#333;
