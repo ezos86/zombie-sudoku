@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import zombieLeader from '../assets/zombie-leader.gif';
 import zombieLost from '../assets/zombie-lost.gif';
 
 const Results = () => {
-    const points = 1;
-    const status = 'won';
+    const gameState = useSelector((state: any) => state.game);
+    const points: any = {
+        easy: 1,
+        medium: 2,
+        hard: 3,
+    };
     const navigate = useNavigate();
 
     return (
         <div className="results-view">
             <div className="view-header">
-                {status == 'won' ? (
+                {gameState.status == 'won' ? (
                     <div className="results-won">
                         <div className="results-zombie-img">
                             <img
@@ -20,7 +25,8 @@ const Results = () => {
                             />
                         </div>
                         <p className="zombie-title">
-                            You Won {points} and escaped the Zombies!
+                            You Won {points[gameState.difficulty]} and escaped
+                            the Zombies!
                         </p>
                     </div>
                 ) : (

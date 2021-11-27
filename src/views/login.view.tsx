@@ -22,7 +22,6 @@ const Login = () => {
             // Check if on teams, if on teams, then show teams list.
             navigate('/menu');
         } catch (error: any) {
-            console.log(error);
             if (error.code == 'auth/user-not-found') {
                 alert('Could not locate the user. Create an account.');
                 // Direct to new account
@@ -57,15 +56,6 @@ const Login = () => {
                 </div>
             </div>
             <div className="login-form">
-                {/* <form>
-                    <fieldset>
-                        <label htmlFor="nameField">Email Address</label>
-                        <input type="email" id="nameField" />
-                        <label htmlFor="nameField">Password</label>
-                        <input type="password" id="nameField" />
-                        <button className="button-primary wd-100">Login</button>
-                    </fieldset>
-                </form> */}
                 {view == 'login' ? (
                     <div className="login-box">
                         <form onSubmit={(event) => loginSubmit(event)}>

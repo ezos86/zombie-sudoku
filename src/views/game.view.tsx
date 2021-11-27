@@ -1,26 +1,121 @@
 import React, { useEffect, useState } from 'react';
-import zombieLoader from '../assets/zombie-lost.gif';
+import zombieSolve from '../assets/zombie-menu.gif';
 import { useNavigate } from 'react-router-dom';
 import firebase from '../services/firebase.service';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
-//import * as moment from 'moment';
+import { useDispatch, useSelector } from 'react-redux';
+import api from '../services/axios.service';
 import moment from 'moment';
+import actions from '../actions';
+import encodeParams from '../utilities/encode.utility';
+import Loader from '../components/Loader.component';
 
 const Game = () => {
     const authState = useSelector((state: any) => state.auth);
-    let startGrid: any = [];
-    const [startPuzzle, setStartPuzzle] = useState<any>(null);
-    const [puzzle, setPuzzle] = useState<any>(null);
+    const userState = useSelector((state: any) => state.user);
+    const gameState = useSelector((state: any) => state.game);
     const navigate = useNavigate();
-    const grid: any = [];
+    const dispatch = useDispatch();
     const startDateTime = moment().format();
 
-    const giveUp = () => {
-        // log game history
-        console.log(puzzle, startPuzzle);
+    // Game Start
+    const points: any = {
+        easy: 1,
+        medium: 2,
+        hard: 3,
+    };
+    const r = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+    const [validating, setValidating] = useState<boolean>(false); // For loader on submit status
+    const [startPuzzle, setStartPuzzle] = useState<any>(null); // represents the hash object from spekit endpoint
+    const [gameStartArray, setGameStartArray] = useState<any>(null); // Represents the Array we convert and use for 'solve' endpoint
+    const [gameArray, setGameArray] = useState<any>([
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ]); // Holds default value for gameArray, which is edited when input is changed - used this vs hash, becuase 'validate' endpoint wants array. faster than recreating array on each submit.
+    const [solved, setSolved] = useState<boolean>(false); // Triggers values and render when solve is hit.
+
+    /*
+        get game from spekit endpoint
+        store original game (it's generated) gameArray, setGameArray
+        update
+        
+        Rebuild array on submit && solve? // loop through letters and numbers and use them to see if exists, or enter 0
+        build array as input happens?
+
+    */
+
+    const submit = async () => {
+        // Use Loader
+        setValidating(true);
+        try {
+            const resp: any = await axios.post(
+                'https://sugoku.herokuapp.com/validate',
+                encodeParams({
+                    board: gameArray,
+                })
+            );
+            if (resp.data.status == 'unsolved') {
+                dispatch(actions.game.setStatus('lost'));
+            } else {
+                dispatch(actions.game.setStatus('won'));
+                // Update Firebase Points
+                // Get and update
+                await firebase
+                    .database()
+                    .ref('/users/' + authState.uuid + '/score')
+                    .set(userState.data.score + points[gameState.difficulty]);
+                // Log Game History
+                const endDateTime = moment().format();
+                await firebase
+                    .database()
+                    .ref('games/' + authState.uuid)
+                    .push({
+                        start: startDateTime,
+                        end: endDateTime,
+                        unix: moment().unix(),
+                        status: 'won',
+                        difficulty: gameState.difficulty,
+                        points: points[gameState.difficulty],
+                        game: gameArray,
+                    });
+            }
+            navigate('/results');
+        } catch (error: any) {
+            console.log(error);
+            alert('Unexpected Error Occurred.');
+        }
+    };
+
+    const solve = async () => {
+        if (validating) {
+            return;
+        }
+        try {
+            const resp: any = await axios.post(
+                'https://sugoku.herokuapp.com/solve',
+                encodeParams({
+                    board: gameStartArray,
+                })
+            );
+            setGameArray([...resp.data.solution]);
+            setSolved(true);
+        } catch (error: any) {
+            console.log(error);
+            alert('Unexpected Error.');
+        }
+    };
+
+    const giveUp = async () => {
         const endDateTime = moment().format();
-        firebase
+        dispatch(actions.game.setStatus('lost'));
+        await firebase
             .database()
             .ref('games/' + authState.uuid)
             .push({
@@ -28,89 +123,113 @@ const Game = () => {
                 end: endDateTime,
                 unix: moment().unix(),
                 status: 'lost',
-                difficulty: 'easy',
+                difficulty: gameState.difficulty,
                 points: 0,
-                game: startPuzzle,
+                game: gameArray,
             });
         navigate('/results');
     };
 
-    const generateGame = (puzzle: any) => {
-        const r = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+    const generateStartGame = (puzzle: any) => {
+        const sgrid: any = [];
         r.map((letter) => {
-            const col = [];
+            sgrid.push([]);
             for (let c = 1; c < 10; c++) {
-                col.push(
-                    <div className="sudoku-block" key={letter + c}>
-                        <input
-                            className="sudoku-input"
-                            type="text"
-                            value={puzzle[letter + c]}
-                            maxLength={1}
-                            onChange={(event: any) => {
-                                setStartPuzzle({
-                                    ...startPuzzle,
-                                    [letter + c]: event.target.value,
-                                });
-                                if (Object.keys(startPuzzle).length + 1 == 81) {
-                                    // Set submit valid
-                                }
-                            }}
-                            disabled={puzzle[letter + c]}
-                        />
-                    </div>
-                );
+                sgrid[r.indexOf(letter)][c - 1] =
+                    Number(puzzle[letter + c]) || 0;
             }
-            const row: any = (
-                <div className="sudoku-row" key={letter}>
-                    {col}
-                </div>
-            );
-            grid.push(row);
         });
-        setPuzzle(grid);
+        setGameStartArray(sgrid); // the Start Value for solving later
     };
 
     const getPuzzle = async () => {
         try {
-            startGrid = await axios.get(
-                'https://vast-chamber-17969.herokuapp.com/generate?difficulty=easy'
+            const startGrid = await api.get(
+                '/generate?difficulty=' + gameState.difficulty
             );
             setStartPuzzle(startGrid.data.puzzle);
-            generateGame(startGrid.data.puzzle);
+            generateStartGame(startGrid.data.puzzle);
         } catch (error) {
-            console.log(error);
+            alert('Problem initializing puzzle.');
         }
     };
 
     useEffect(() => {
-        console.log(authState);
         getPuzzle();
     }, []);
 
     return (
         <div className="game-view">
             <div className="view-header">
-                <div className="view-title-container p-t-l">
+                <div className="zombie-solve pointer" onClick={solve}>
+                    <img src={zombieSolve} />
+                </div>
+                <div className="view-title-container mt-n-m">
                     <h1 className="zombie-title">Zombie Sudoku</h1>
                 </div>
             </div>
-            {puzzle ? (
-                <div className="grid-container">
-                    <div className="game-grid">{puzzle}</div>
-                    <div className="button-group flex justify-space-between">
-                        <p className="menu-link pointer">Submit</p>
-                        <p className="menu-link pointer" onClick={giveUp}>
-                            Give Up
-                        </p>
+            <div className="solved">
+                {startPuzzle && !validating ? (
+                    <div className="grid-container">
+                        <div className="game-grid">
+                            {r.map((letter) => {
+                                const col = [];
+                                for (let c = 1; c < 10; c++) {
+                                    col.push(
+                                        <div
+                                            className="sudoku-block"
+                                            key={letter + c}
+                                        >
+                                            <input
+                                                className="sudoku-input"
+                                                type="text"
+                                                value={
+                                                    solved
+                                                        ? gameArray[
+                                                              r.indexOf(letter)
+                                                          ][c - 1]
+                                                        : startPuzzle[
+                                                              letter + c
+                                                          ]
+                                                }
+                                                maxLength={1}
+                                                onChange={(event: any) => {
+                                                    const g = [...gameArray];
+                                                    g[r.indexOf(letter)][
+                                                        c - 1
+                                                    ] = Number(
+                                                        event.target.value
+                                                    );
+                                                    setGameArray(g);
+                                                }}
+                                                disabled={
+                                                    startPuzzle[letter + c] ||
+                                                    solved
+                                                }
+                                            />
+                                        </div>
+                                    );
+                                }
+                                return (
+                                    <div className="sudoku-row" key={letter}>
+                                        {col}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                        <div className="button-group flex justify-space-between">
+                            <p className="menu-link pointer" onClick={submit}>
+                                Submit
+                            </p>
+                            <p className="menu-link pointer" onClick={giveUp}>
+                                Give Up
+                            </p>
+                        </div>
                     </div>
-                </div>
-            ) : (
-                <div className="align-center">
-                    <img className="zombie-loader" src={zombieLoader} />
-                    <p className="zombie-text m-t-m">Loading...</p>
-                </div>
-            )}
+                ) : (
+                    <Loader />
+                )}
+            </div>
         </div>
     );
 };

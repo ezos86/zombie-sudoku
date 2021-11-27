@@ -1,18 +1,19 @@
 const game = {
-    loadGame: (data: any) => {
+    setDiff: (diff: string) => {
         return {
-            type: 'loadUser',
-            data,
+            type: 'setDiff',
+            diff,
+        };
+    },
+    setStatus: (status: string) => {
+        return {
+            type: 'setStatus',
+            status,
         };
     },
     clearGame: () => {
         return {
-            type: 'clearUser',
-        };
-    },
-    game: () => {
-        return {
-            type: 'menu',
+            type: 'clearGame',
         };
     },
 };

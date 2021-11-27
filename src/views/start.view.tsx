@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import actions from '../actions';
 import zombieStart from '../assets/zombie-start.gif';
 
 const Start = () => {
-    const [diff, setDiff] = useState<string>('easy');
+    const gameState = useSelector((state: any) => state.game);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const selectDiff = (diff: string) => {
+        dispatch(actions.game.setDiff(diff));
+    };
 
     return (
         <div className="start-view">
@@ -13,9 +20,8 @@ const Start = () => {
                     <img className="start-zombie" src={zombieStart} />
                 </div>
                 <p className="start-text">
-                    Solve the Sudoku before zombies eat you. You will have 20
-                    minutes to solve the sudoku. If you quit, you will lose
-                    automatically.
+                    Solve the Sudoku before zombies eat you. If you quit, you
+                    will lose automatically.
                 </p>
             </div>
             <div className="start-content">
@@ -25,11 +31,13 @@ const Start = () => {
                 <div className="start-diff">
                     <div
                         className="diff-select pointer"
-                        onClick={() => setDiff('easy')}
+                        onClick={() => selectDiff('easy')}
                     >
                         <p
                             className={`start-diff-select ${
-                                diff == 'easy' ? 'menu-active' : ''
+                                gameState.difficulty == 'easy'
+                                    ? 'menu-active'
+                                    : ''
                             }`}
                         >
                             Easy
@@ -37,11 +45,13 @@ const Start = () => {
                     </div>
                     <div
                         className="diff-select pointer"
-                        onClick={() => setDiff('medium')}
+                        onClick={() => selectDiff('medium')}
                     >
                         <p
                             className={`start-diff-select ${
-                                diff == 'medium' ? 'menu-active' : ''
+                                gameState.difficulty == 'medium'
+                                    ? 'menu-active'
+                                    : ''
                             }`}
                         >
                             Medium
@@ -49,11 +59,13 @@ const Start = () => {
                     </div>
                     <div
                         className="diff-select pointer"
-                        onClick={() => setDiff('hard')}
+                        onClick={() => selectDiff('hard')}
                     >
                         <p
                             className={`start-diff-select ${
-                                diff == 'hard' ? 'menu-active' : ''
+                                gameState.difficulty == 'hard'
+                                    ? 'menu-active'
+                                    : ''
                             }`}
                         >
                             Hard

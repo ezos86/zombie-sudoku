@@ -14,7 +14,7 @@ The goal is to break down work into tasks. To make it simple, I didn't break dow
 - IEN-2 Auth Services
 - IEN-3 Menu and Game
 - IEN-4 Leaderboard
-- IEN-5 Tests
+- IEN-5 Bugs & Tests
 - IEN-6 Cleanup
 
 ## Project Structure

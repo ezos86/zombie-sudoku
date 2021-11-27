@@ -14,9 +14,7 @@ const History = () => {
         const list: any = await firebase
             .database()
             .ref('games/' + authState.uuid)
-            //.orderByChild('unix')
             .get();
-        console.log(Object.values(list.val()));
         setGameList(Object.values(list.val()));
     };
 
@@ -25,7 +23,7 @@ const History = () => {
     }, []);
 
     return (
-        <div className="leader-view">
+        <div className="history-view">
             <div className="view-header p-l-s p-r-s">
                 <img className="leader-zombie" src={zombieLeader} />
                 <div className="leader-txt">

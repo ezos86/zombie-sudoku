@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import actions from '../actions';
 import firebase from '../services/firebase.service';
 import { useDispatch, useSelector } from 'react-redux';
-import api from '../services/axios.service';
-// import { getDatabase, ref, child, get } from 'firebase/database';
 
-const home = (props: any) => {
+const Auth = (props: any) => {
     const authState = useSelector((state: any) => state.auth);
     const [authLoad, setAuthLoad] = useState(false);
     const dispatch = useDispatch();
@@ -20,17 +18,6 @@ const home = (props: any) => {
         } catch (error) {
             console.log(error);
         }
-
-        // .then((snapshot) => {
-        //     if (snapshot.exists()) {
-        //         console.log(snapshot.val());
-        //     } else {
-        //         console.log('No data available');
-        //     }
-        // })
-        // .catch((error) => {
-        //     console.error(error);
-        // });
     };
 
     useEffect(() => {
@@ -46,10 +33,8 @@ const home = (props: any) => {
                     })
                 );
 
-                api.defaults.headers.common['token'] = token;
                 const userSnap: any = await getUser(user.uid);
                 const userResp = userSnap.val();
-                console.log(userResp);
                 if (userResp.error) {
                     window.location.pathname == '/login';
                 } else {
@@ -71,7 +56,7 @@ const home = (props: any) => {
                 ) {
                     // do nothing
                 } else {
-                    //window.location.href = '/login';
+                    window.location.href = '/login';
                 }
             }
         });
@@ -88,4 +73,4 @@ const home = (props: any) => {
     }
 };
 
-export default home;
+export default Auth;

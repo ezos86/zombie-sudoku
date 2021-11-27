@@ -1,3 +1,9 @@
+// Variables
+
+$primary-color: #9b4dc9;
+$secondary-color: #432f4e;
+
+// General
 
 .flex{
     display: flex;
@@ -31,27 +37,12 @@
     padding-left:10px;
 }
 
+.mt-n-m{
+    margin-top: -50px;
+}
+
 .justify-space-between{
     justify-content: space-between;
-}
-
-.login-form{
-    margin: auto;
-    width: 100%;
-    max-width: 400px;
-    background: #fff;
-    box-shadow: 0 0 8px #999;
-    padding: 20px;
-}
-
-.login-header{
-    text-align: center;
-}
-
-.login-title{
-    color:#fff;
-    font-size:60px;
-    font-family: 'Bangers';
 }
 
 html,
@@ -62,7 +53,7 @@ body,
 }
 
 .window{
-    background-color: #9b4dc9;
+    background-color: $primary-color;
 }
 
 .pointer{
@@ -94,6 +85,28 @@ body,
     font-family: 'Bangers';
 }
 
+.button-start{
+    background-color: #fff;
+    color:$secondary-color;
+    margin-top:40px;
+}
+
+.button-group{
+    margin: 0 auto;
+    padding-left:20px;
+    padding-right:20px;
+    margin-top:20px;
+    max-width: 600px;
+    min-width: 350px;
+}
+
+.view-header{
+    text-align:center;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+// Lost
 .lostpage{
     height:100%;
     display: flex;
@@ -105,6 +118,52 @@ body,
     width:200px;
 }
 
+// Login
+
+.login-form{
+    margin: auto;
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    box-shadow: 0 0 8px #999;
+    padding: 20px;
+}
+
+.login-header{
+    text-align: center;
+}
+
+.login-title{
+    color:#fff;
+    font-size:60px;
+    font-family: 'Bangers';
+}
+
+// Leader
+
+.leader-view, .history-view{
+    background-color: $primary-color;
+}
+
+.leader-board{
+    border-top:1px solid #fff;
+}
+
+// About
+
+.about-image{
+    width: 180px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.about-view{
+    margin: 0 auto;
+    max-width:600px;
+}
+
+// Menu
 .menu-view{
     height:100%;
     display: flex;
@@ -119,12 +178,12 @@ body,
     display: block;
     text-align:center;
     &:hover{
-        color:#432f4e;
+        color:$secondary-color;
     }
 }
 
 .menu-active{
-    color:#432f4e !important;
+    color:$secondary-color !important;
 }
 
 .menu-zombie{
@@ -132,6 +191,7 @@ body,
     margin-bottom: 40px;
 }
 
+// Start
 .start-header{
     max-width: 600px;
     text-align: center;
@@ -175,16 +235,9 @@ body,
     display: block;
     text-align:center;
     &:hover{
-        color:#432f4e;
+        color:$secondary-color;
     }
 }
-
-.button-start{
-    background-color: #fff;
-    color:#432f4e;
-    margin-top:40px;
-}
-
 
 // Game
 .game-number{
@@ -226,33 +279,18 @@ body,
     }
 }
 
-.button-group{
-    margin: 0 auto;
-    padding-left:20px;
-    padding-right:20px;
-    margin-top:20px;
-    max-width: 600px;
-    min-width: 350px;
+.sudoku-row .sudoku-block:nth-child(3n+3) {  
+    border-right:2px solid #333;
 }
 
-.view-header{
-    text-align:center;
-    margin: 0 auto;
-    max-width: 600px;
+.sudoku-row .sudoku-block:last-child{
+    border-right: 1px solid #333 !important;
 }
 
-.leader-board{
-    border-top:1px solid #fff;
+.game-grid .sudoku-row:nth-child(3n+3){
+    border-bottom: 2px solid #333;
 }
 
-.about-image{
-    width: 180px;
-    border-radius: 50%;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-.about-view{
-    margin: 0 auto;
-    max-width:600px;
+.game-grid .sudoku-row:last-child{
+    border-bottom: 1px solid #333 !important;
 }
