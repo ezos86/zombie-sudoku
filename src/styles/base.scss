@@ -1,12 +1,171 @@
-.login{
+
+.flex{
+    display: flex;
+}
+
+.m-t-xs{
+    margin-top: 5px;
+}
+
+.m-t-s{
+    margin-top:10px;
+}
+
+.justify-space-between{
+    justify-content: space-between;
+}
+
+.login-form{
     margin: auto;
-    width: 350px;
+    width: 100%;
+    max-width: 400px;
     background: #fff;
     box-shadow: 0 0 8px #999;
     padding: 20px;
-    margin-top: 100px;
 }
 
-.App {  
-    background-color: mediumspringgreen;
+.login-header{
+    text-align: center;
+}
+
+.login-title{
+    color:#fff;
+    font-size:60px;
+    font-family: 'Bangers';
+}
+
+html,
+body,
+#root,
+.window {
+    height: 100%;
+}
+
+.window{
+    background-color: #9b4dc9;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.wd-100{
+    width:100%;
+}
+
+.zombie-loader{
+    width:150px;
+}
+
+.align-center{
+    text-align:center;
+}
+
+.zombie-title{
+    color:#fff;
+    font-size:60px;
+    font-family: 'Bangers';
+}
+
+.zombie-text{
+    color:#fff;
+    font-size:18px;
+    font-family: 'Bangers';
+}
+
+.lostpage{
+    height:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lostpage-zombie{
+    width:200px;
+}
+
+.menu-view{
+    height:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-link{
+    color:#fff;
+    font-size:36px;
+    font-family: 'Bangers';
+    display: block;
+    text-align:center;
+    &:hover{
+        color:#432f4e;
+    }
+}
+
+.menu-active{
+    color:#432f4e !important;
+}
+
+.menu-zombie{
+    width:150px;
+}
+
+.start-header{
+    max-width: 600px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.start-text{
+    color:#fff;
+    font-size:24px;
+    font-family: 'Bangers';
+}
+
+.start-content{
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+.start-zombie-img{
+    text-align: center;
+    margin-bottom:20px;
+}
+
+.start-zombie{
+    max-width:150px;
+}
+
+.start-diff{
+    display: flex;
+    max-width: 400px;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding-left:20px;
+    padding-right:20px;
+}
+
+.start-diff-select{
+    color:#fff;
+    font-size:24px;
+    font-family: 'Bangers';
+    display: block;
+    text-align:center;
+    &:hover{
+        color:#432f4e;
+    }
+}
+
+.button-start{
+    background-color: #fff;
+    color:#432f4e;
+    margin-top:40px;
+}
+
+
+// Game
+.game-number{
+    font-size: 16px;
+    font-size: 4vw;
 }

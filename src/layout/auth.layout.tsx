@@ -1,13 +1,37 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import actions from '../actions';
 import firebase from '../services/firebase.service';
 import { useDispatch, useSelector } from 'react-redux';
 import api from '../services/axios.service';
+// import { getDatabase, ref, child, get } from 'firebase/database';
 
 const home = (props: any) => {
     const authState = useSelector((state: any) => state.auth);
     const [authLoad, setAuthLoad] = useState(false);
     const dispatch = useDispatch();
+
+    const getUser = async (uuid: string) => {
+        try {
+            const user = await firebase
+                .database()
+                .ref('/users/' + uuid)
+                .get();
+            return user;
+        } catch (error) {
+            console.log(error);
+        }
+
+        // .then((snapshot) => {
+        //     if (snapshot.exists()) {
+        //         console.log(snapshot.val());
+        //     } else {
+        //         console.log('No data available');
+        //     }
+        // })
+        // .catch((error) => {
+        //     console.error(error);
+        // });
+    };
 
     useEffect(() => {
         // Load App Settings
@@ -15,21 +39,21 @@ const home = (props: any) => {
             if (user) {
                 // Auth in Redux
                 const token = await user.getIdToken();
-                // dispatch(
-                //     actions.auth.login({
-                //         uuid: user.uid,
-                //         token: token,
-                //     })
-                // );
+                dispatch(
+                    actions.auth.login({
+                        uuid: user.uid,
+                        token: token,
+                    })
+                );
 
                 api.defaults.headers.common['token'] = token;
-                api.defaults.headers.common['target'] = 'coach';
-                const userResp: any = await api.get('/users/' + user.uid);
+                const userSnap: any = await getUser(user.uid);
+                const userResp = userSnap.val();
                 console.log(userResp);
                 if (userResp.error) {
                     window.location.pathname == '/login';
                 } else {
-                    //dispatch(actions.user.loadUser(userResp.data.data));
+                    dispatch(actions.user.loadUser(userResp));
                     setAuthLoad(true);
                 }
                 if (
@@ -37,7 +61,7 @@ const home = (props: any) => {
                     window.location.pathname == '/login' ||
                     window.location.pathname == '/register'
                 ) {
-                    window.location.href = '/dashboard';
+                    window.location.href = '/menu';
                 }
             } else {
                 setAuthLoad(true);
@@ -47,7 +71,7 @@ const home = (props: any) => {
                 ) {
                     // do nothing
                 } else {
-                    window.location.href = '/login';
+                    //window.location.href = '/login';
                 }
             }
         });
@@ -55,7 +79,7 @@ const home = (props: any) => {
 
     if (authLoad) {
         return (
-            <div className={authState.uuid ? '' : 'window'}>
+            <div className={authState.uuid ? 'window' : 'window'}>
                 {props.children}
             </div>
         );
