@@ -16,7 +16,7 @@ The goal is to break down work into tasks. To make it simple, I didn't break dow
 - IEN-4 Leaderboard
 - IEN-5 Bugs
 - IEN-6 Deployment
-- IEN-7 Cleanup And Misc
+- IEN-7 Cleanup And Tests
 
 ## Project Structure
 The folder structure of this app is explained below:
