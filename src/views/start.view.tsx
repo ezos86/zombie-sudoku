@@ -19,7 +19,7 @@ const Start = () => {
                 <div className="start-zombie-img">
                     <img className="start-zombie" src={zombieStart} />
                 </div>
-                <p className="start-text">
+                <p className="start-text p-l-s p-r-s">
                     Solve the Sudoku before zombies eat you. If you quit, you
                     will lose automatically.
                 </p>

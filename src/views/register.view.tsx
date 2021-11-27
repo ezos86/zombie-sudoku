@@ -20,7 +20,6 @@ const Register = () => {
         event.preventDefault();
         dispatch(actions.auth.authLoad());
         try {
-            console.log(register);
             // Register User
             const fbuser = await firebase
                 .auth()
@@ -44,7 +43,6 @@ const Register = () => {
             if (error.code == 'auth/email-already-in-use') {
                 alert('This email is already in use, Login.');
             } else {
-                console.log(error);
                 alert('Error occurred. Try again later.');
             }
             dispatch(actions.auth.error());

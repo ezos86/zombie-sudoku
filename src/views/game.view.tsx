@@ -78,7 +78,6 @@ const Game = () => {
             }
             navigate('/results');
         } catch (error: any) {
-            console.log(error);
             alert('Unexpected Error Occurred.');
         }
     };
@@ -97,7 +96,6 @@ const Game = () => {
             setGameArray([...resp.data.solution]);
             setSolved(true);
         } catch (error: any) {
-            console.log(error);
             alert('Unexpected Error.');
         }
     };
@@ -172,7 +170,7 @@ const Game = () => {
                                         >
                                             <input
                                                 className="sudoku-input"
-                                                type="text"
+                                                type="number"
                                                 value={
                                                     solved
                                                         ? gameArray[

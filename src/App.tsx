@@ -8,8 +8,7 @@ import { createStore, applyMiddleware } from 'redux';
 //Store
 import rootReducer from './reducers/index';
 const logger = (store: any) => (next: any) => (action: any) => {
-    console.log(action);
-    console.log(store.getState());
+    console.log(store);
     next(action);
 };
 
