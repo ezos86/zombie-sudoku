@@ -128,7 +128,8 @@ body,
 }
 
 .menu-zombie{
-    width:150px;
+    width: 200px;
+    margin-bottom: 40px;
 }
 
 .start-header{
@@ -242,4 +243,16 @@ body,
 
 .leader-board{
     border-top:1px solid #fff;
+}
+
+.about-image{
+    width: 180px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.about-view{
+    margin: 0 auto;
+    max-width:600px;
 }

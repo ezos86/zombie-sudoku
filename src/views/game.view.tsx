@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import firebase from '../services/firebase.service';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+//import * as moment from 'moment';
+import moment from 'moment';
 
 const Game = () => {
     const authState = useSelector((state: any) => state.auth);
@@ -12,14 +14,19 @@ const Game = () => {
     const [puzzle, setPuzzle] = useState<any>(null);
     const navigate = useNavigate();
     const grid: any = [];
+    const startDateTime = moment().format();
 
     const giveUp = () => {
         // log game history
         console.log(puzzle, startPuzzle);
+        const endDateTime = moment().format();
         firebase
             .database()
             .ref('games/' + authState.uuid)
             .push({
+                start: startDateTime,
+                end: endDateTime,
+                unix: moment().unix(),
                 status: 'lost',
                 difficulty: 'easy',
                 points: 0,

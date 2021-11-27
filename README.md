@@ -12,7 +12,7 @@ The goal is to break down work into tasks. To make it simple, I didn't break dow
 
 - IEN-1 App Setup
 - IEN-2 Auth Services
-- IEN-3 Menu & Game
+- IEN-3 Menu and Game
 - IEN-4 Leaderboard
 - IEN-5 Tests
 - IEN-6 Cleanup
@@ -22,7 +22,7 @@ The folder structure of this app is explained below:
 
 | Name | Description |
 | ------------------------ | --------------------------------------------------------------------------------------------- |
-| **dist**                 | Contains the distributable (or output) from your TypeScript build.                            |
+| **build**                 | Contains the distributable (or output) from your TypeScript build.                            |
 | **node_modules**         | Contains all npm dependencies                                                                 |
 | **src**                  | Contains source code that will be compiled to the dist dir                                    |
 | **src/app**           | Main react application folder

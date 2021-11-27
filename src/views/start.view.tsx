@@ -60,12 +60,12 @@ const Start = () => {
                         </p>
                     </div>
                 </div>
-                <button
-                    className="button-start"
+                <p
+                    className="menu-link pointer m-t-m"
                     onClick={() => navigate('/game')}
                 >
                     Start
-                </button>
+                </p>
             </div>
         </div>
     );

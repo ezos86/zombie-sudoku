@@ -28,7 +28,7 @@ const Menu = () => {
                     <a className="menu-link" href="/about">
                         About Me
                     </a>
-                    <p className="menu-link" onClick={logout}>
+                    <p className="menu-link pointer" onClick={logout}>
                         Logout
                     </p>
                 </div>

@@ -34,6 +34,7 @@ import Login from './views/login.view';
 import About from './views/about.view';
 import Menu from './views/menu.view';
 import Leaderboard from './views/leaderboard.view';
+import History from './views/history.view';
 import Start from './views/start.view';
 import Game from './views/game.view';
 import Results from './views/results.view';
@@ -54,6 +55,7 @@ const App = () => {
                                 path="leaderboard"
                                 element={<Leaderboard />}
                             />
+                            <Route path="history" element={<History />} />
                             <Route path="start" element={<Start />} />
                             <Route path="game" element={<Game />} />
                             <Route path="results" element={<Results />} />

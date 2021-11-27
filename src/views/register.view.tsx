@@ -5,7 +5,7 @@ import actions from '../actions';
 import firebase from '../services/firebase.service';
 import zombieHead from '../assets/zombie-fly.gif';
 
-const register = () => {
+const Register = () => {
     const [register, setRegister] = useState<any>({});
     const authState = useSelector((state: any) => state.auth);
     const dispatch = useDispatch();
@@ -150,4 +150,4 @@ const register = () => {
     );
 };
 
-export default register;
+export default Register;
