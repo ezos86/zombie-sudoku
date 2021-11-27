@@ -2,20 +2,20 @@ const layout = {
     menuChange: (state: boolean) => {
         return {
             type: 'menuChange',
-            data: state
+            data: state,
         };
     },
     pathChange: (state: string) => {
         return {
             type: 'pathChange',
-            data: state
+            data: state,
         };
     },
     resetLayout: () => {
         return {
-            type: 'resetLayout'
+            type: 'resetLayout',
         };
-    }
+    },
 };
 
 export default layout;
