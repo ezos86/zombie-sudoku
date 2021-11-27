@@ -1,7 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import zombieMenu from '../assets/zombie-menu2.gif';
+import firebase from '../services/firebase.service';
 
 const Menu = () => {
+    const navigate = useNavigate();
+
+    const logout = () => {
+        firebase.auth().signOut();
+        navigate('/login');
+    };
+
     return (
         <div className="menu-view">
             <div className="menu-header">
@@ -19,9 +28,9 @@ const Menu = () => {
                     <a className="menu-link" href="/about">
                         About Me
                     </a>
-                    <a className="menu-link" href="/logout">
+                    <p className="menu-link" onClick={logout}>
                         Logout
-                    </a>
+                    </p>
                 </div>
             </div>
         </div>

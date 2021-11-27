@@ -33,7 +33,10 @@ import Register from './views/register.view';
 import Login from './views/login.view';
 import About from './views/about.view';
 import Menu from './views/menu.view';
+import Leaderboard from './views/leaderboard.view';
 import Start from './views/start.view';
+import Game from './views/game.view';
+import Results from './views/results.view';
 import NoPage from './views/nopage.view';
 
 const App = () => {
@@ -47,8 +50,13 @@ const App = () => {
                             <Route path="about" element={<About />} />
                             <Route path="register" element={<Register />} />
                             <Route path="menu" element={<Menu />} />
+                            <Route
+                                path="leaderboard"
+                                element={<Leaderboard />}
+                            />
                             <Route path="start" element={<Start />} />
-                            <Route path="game" element={<Start />} />
+                            <Route path="game" element={<Game />} />
+                            <Route path="results" element={<Results />} />
                             <Route path="*" element={<NoPage />} />
                         </Route>
                     </Routes>

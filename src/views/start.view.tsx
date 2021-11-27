@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import zombieStart from '../assets/zombie-start.gif';
 
 const Start = () => {
     const [diff, setDiff] = useState<string>('easy');
+    const navigate = useNavigate();
 
     return (
         <div className="start-view">
@@ -58,7 +60,12 @@ const Start = () => {
                         </p>
                     </div>
                 </div>
-                <button className="button-start">Start</button>
+                <button
+                    className="button-start"
+                    onClick={() => navigate('/game')}
+                >
+                    Start
+                </button>
             </div>
         </div>
     );

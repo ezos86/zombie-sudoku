@@ -1,20 +1,20 @@
-const user = {
-    loadUser: (data: any) => {
+const game = {
+    loadGame: (data: any) => {
         return {
             type: 'loadUser',
             data,
         };
     },
-    clearUser: () => {
+    clearGame: () => {
         return {
             type: 'clearUser',
         };
     },
-    menu: () => {
+    game: () => {
         return {
             type: 'menu',
         };
     },
 };
 
-export default user;
+export default game;
