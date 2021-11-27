@@ -15,7 +15,8 @@ The goal is to break down work into tasks. To make it simple, I didn't break dow
 - IEN-3 Menu and Game
 - IEN-4 Leaderboard
 - IEN-5 Bugs
-- IEN-6 Misc
+- IEN-6 Deployment
+- IEN-7 Cleanup And Misc
 
 ## Project Structure
 The folder structure of this app is explained below:
@@ -29,10 +30,11 @@ The folder structure of this app is explained below:
 | **src/components**      | Components to be used in application. 
 | **src/services**      | Services such as auth and storage
 | **src/assets**      | Images, documents, audio.
+| **src/utilities**      | Common functions for parsing data.
 | **src/layout**      | Navigation, view wrappers, etc.
 | **src/views**          | Views or layout components that will essentially be represented by router. 
 | **src/styles**      | The styles for base and components
-| **src/test**      | The test suite to test the react application. Includes setup for enzyme and mocks.
+| **src/tests**      | The test suite to test the react application. Includes setup for enzyme and mocks.
 | **src/public/index.html**           | The entry point for application.                      
 | **src/App.tsx**        | The main react application   |
 
