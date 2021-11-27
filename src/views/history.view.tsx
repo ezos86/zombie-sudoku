@@ -15,7 +15,7 @@ const History = () => {
             .database()
             .ref('games/' + authState.uuid)
             .get();
-        setGameList(Object.values(list.val()));
+        setGameList(Object.values(list.val()).reverse());
     };
 
     useEffect(() => {

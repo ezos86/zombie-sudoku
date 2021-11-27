@@ -13,7 +13,7 @@ const Leaderboard = () => {
             .ref('users')
             .orderByChild('score')
             .get();
-        setUserList(Object.values(list.val()));
+        setUserList(Object.values(list.val()).reverse());
     };
 
     useEffect(() => {
