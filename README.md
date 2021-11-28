@@ -1,6 +1,6 @@
 # Zombie Sudoku
 
-Zombie Sudoku is a game where you can play [here](http://zombie.herokuapp.com).
+Zombie Sudoku is a game where you can play [here](http://zombie.codelabs.io).
 
 ## Rules
 
