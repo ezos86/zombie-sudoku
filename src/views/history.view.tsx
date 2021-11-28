@@ -15,7 +15,9 @@ const History = () => {
             .database()
             .ref('games/' + authState.uuid)
             .get();
-        setGameList(Object.values(list.val()).reverse());
+        setGameList(
+            Object.values(list.val()).sort((a: any, b: any) => b.unix - a.unix)
+        );
     };
 
     useEffect(() => {
